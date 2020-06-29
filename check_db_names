@@ -1,0 +1,14 @@
+import pymongo
+# dnspython installed also
+
+MONGO_DB_PASSWORD = "..." 
+
+myclient = pymongo.MongoClient(f'mongodb+srv://testerDBuser:{MONGO_DB_PASSWORD}@cluster0-nfwjm.mongodb.net/test')
+
+dblist = myclient.list_database_names()
+print(dblist)
+
+result:
+['testDB', 'admin', 'local']
+
+Process finished with exit code 0
