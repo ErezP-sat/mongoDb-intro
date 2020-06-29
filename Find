@@ -1,0 +1,34 @@
+import pymongo
+# dnspython installed also
+
+MONGO_DB_PASSWORD = "MG841752!"
+
+myclient = pymongo.MongoClient(f'mongodb+srv://testerDBuser:{MONGO_DB_PASSWORD}@cluster0-nfwjm.mongodb.net/test')
+
+mydb = myclient["testDB"]
+
+mycol = mydb["customers"]
+
+x = mycol.find_one()
+
+print(x)
+
+#find all
+
+for x in mycol.find():
+  print(x)
+  
+# Return Only Some Fields, Return only the names and addresses (1), not the _ids:
+
+for x in mycol.find({},{ "_id": 0, "name": 1, "address": 1 }):
+  print(x)
+  
+# exclude "address" from the result:
+for x in mycol.find({},{ "address": 0 }):
+  print(x)
+  
+# pymongo.errors.OperationFailure: Projection cannot have a mix of inclusion and exclusion.
+# You get an error if you specify both 0 and 1 values in the same object (except if one of the fields is the _id field)
+
+for x in mycol.find({},{ "name": 1, "address": 0 }):
+  print(x)
