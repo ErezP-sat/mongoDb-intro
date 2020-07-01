@@ -1,0 +1,28 @@
+import pymongo
+# dnspython installed also
+
+MONGO_DB_PASSWORD = "MG841752!"
+
+myclient = pymongo.MongoClient(f'mongodb+srv://testerDBuser:{MONGO_DB_PASSWORD}@cluster0-nfwjm.mongodb.net/test')
+
+mydb = myclient["testDB"]
+
+mycol = mydb["customers"]
+
+#delete one
+myquery = { "address": "Mountain 21" }
+
+mycol.delete_one(myquery)
+
+#delete many
+myquery = { "address": {"$regex": "^S"} }
+
+x = mycol.delete_many(myquery)
+
+print(x.deleted_count, " documents deleted.")
+#result - 4  documents deleted.
+
+#delete all documents in collection:
+x = mycol.delete_many({})
+
+print(x.deleted_count, " documents deleted.")
