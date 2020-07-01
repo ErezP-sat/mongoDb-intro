@@ -1,0 +1,23 @@
+import pymongo
+# dnspython installed also
+
+MONGO_DB_PASSWORD = "MG841752!"
+
+myclient = pymongo.MongoClient(f'mongodb+srv://testerDBuser:{MONGO_DB_PASSWORD}@cluster0-nfwjm.mongodb.net/test')
+
+mydb = myclient["testDB"]
+
+mycol = mydb["customers"]
+
+mydoc = mycol.find().sort("name")
+
+for x in mydoc:
+  print(x)
+  
+#Sort Descending
+#sort("name", 1) #ascending
+#sort("name", -1) #descending
+mydoc = mycol.find().sort("name", -1)
+
+for x in mydoc:
+  print(x)
